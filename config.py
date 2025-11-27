@@ -28,12 +28,7 @@ database_default = {
             "password": "123456",
             "level": "admin",
             "tanggal_gabung": "2024-01-01 09:00:00",
-            "wallets": {
-                "USDT": 10000.00,
-                "BTC": 0.5,
-                "ETH": 2.0,
-                "BNB": 10.0
-            }
+            "wallets": {}
         }
     },
     "harga_pasar": {

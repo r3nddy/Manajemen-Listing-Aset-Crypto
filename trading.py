@@ -1,5 +1,4 @@
 """
-Modul Trading
 Semua fitur trading: Beli, Jual, Dompet, Pasar, CRUD Koin
 """
 
