@@ -1,116 +1,157 @@
 """
-Utils: Helper Functions & Animations
+Modul Utils
 Fungsi bantuan dan animasi
 """
 
 import os
 import sys
 import time
-from config import MIN_USERNAME_LENGTH, MIN_PASSWORD_LENGTH
+from config import min_panjang_username, min_panjang_password
 
 
-# ==================== HELPER FUNCTIONS ====================
+# ==================== FUNGSI BANTUAN ====================
 
-def clear_screen():
-    """Clear terminal screen"""
-    os.system('cls' if os.name == 'nt' else 'clear')
+def bersihkan_layar():
+    """Membersihkan layar terminal"""
+    try:
+        os.system('cls' if os.name == 'nt' else 'clear')
+    except Exception as e:
+        print(f"Error saat membersihkan layar: {e}")
+        pass
 
 
 def pause():
     """Pause dan tunggu user menekan Enter"""
-    input("\n    [Tekan Enter untuk melanjutkan...]")
+    try:
+        input("\n    [Tekan Enter untuk melanjutkan...]")
+    except KeyboardInterrupt:
+        print("\n")
+    except Exception:
+        pass
 
 
-def format_price_change(change):
+def format_perubahan_harga(perubahan):
     """Format perubahan harga dengan tanda"""
-    if change > 0:
-        return f"+{change:.2f}%"
-    else:
-        return f"{change:.2f}%"
+    try:
+        if perubahan > 0:
+            return f"+{perubahan:.2f}%"
+        else:
+            return f"{perubahan:.2f}%"
+    except Exception:
+        return "0.00%"
 
 
-def validate_username(username):
+def validasi_username(username):
     """Validasi username"""
-    if not username or username.strip() == "":
-        return False, "Username tidak boleh kosong"
-    
-    if len(username) < MIN_USERNAME_LENGTH:
-        return False, f"Username minimal {MIN_USERNAME_LENGTH} karakter"
-    
-    return True, "Valid"
+    try:
+        if not username or username.strip() == "":
+            return False, "Username tidak boleh kosong"
+        
+        if len(username) < min_panjang_username:
+            return False, f"Username minimal {min_panjang_username} karakter"
+        
+        return True, "Valid"
+    except Exception as e:
+        return False, f"Error saat validasi: {e}"
 
 
-def validate_password(password):
+def validasi_password(password):
     """Validasi password"""
-    if not password or password.strip() == "":
-        return False, "Password tidak boleh kosong"
-    
-    if len(password) < MIN_PASSWORD_LENGTH:
-        return False, f"Password minimal {MIN_PASSWORD_LENGTH} karakter"
-    
-    return True, "Valid"
+    try:
+        if not password or password.strip() == "":
+            return False, "Password tidak boleh kosong"
+        
+        if len(password) < min_panjang_password:
+            return False, f"Password minimal {min_panjang_password} karakter"
+        
+        return True, "Valid"
+    except Exception as e:
+        return False, f"Error saat validasi: {e}"
+
+
+# ==================== ANIMASI ====================
 
 def blockchain_loading():
     """Loading bar dengan tema blockchain"""
-    print("\n")
-    print("    ⛓️  Menghubungkan ke Blockchain...")
-    print()
-    
-    for i in range(101):
-        filled = int(20 * i / 100)
-        bar = '█' * filled + '░' * (20 - filled)
-        sys.stdout.write(f'\r    [{bar}] {i}%')
-        sys.stdout.flush()
-        time.sleep(0.03)
-    
-    print("\n")
-    print("    🔐 Verifikasi Kredensial...")
-    time.sleep(1)
-    print("    ✅ Koneksi Berhasil!\n")
-    time.sleep(0.5)
+    try:
+        print("\n")
+        print("    ⛓️  Menghubungkan ke Blockchain...")
+        print()
+        
+        for i in range(101):
+            terisi = int(20 * i / 100)
+            batang = '█' * terisi + '░' * (20 - terisi)
+            sys.stdout.write(f'\r    [{batang}] {i}%')
+            sys.stdout.flush()
+            time.sleep(0.03)
+        
+        print("\n")
+        print("    🔐 Verifikasi Kredensial...")
+        time.sleep(1)
+        print("    ✅ Koneksi Berhasil!\n")
+        time.sleep(0.5)
+    except KeyboardInterrupt:
+        print("\n\nLoading dibatalkan.")
+    except Exception as e:
+        print(f"\nError saat loading: {e}")
 
 
 def verification_animation():
     """Animasi verifikasi"""
-    steps = [
-        "🔍 Memeriksa Username",
-        "🔐 Validasi Password",
-        "⛓️  Verifikasi Blockchain",
-        "🛡️  Checking Security",
-        "✅ Authentication Success"
-    ]
-    
-    print()
-    for step in steps:
-        print(f"    {step}", end="")
-        for _ in range(3):
-            sys.stdout.write('.')
-            sys.stdout.flush()
-            time.sleep(0.2)
-        print(" ✓")
-        time.sleep(0.3)
-    print()
+    try:
+        langkah = [
+            "🔍 Memeriksa Username",
+            "🔐 Validasi Password",
+            "⛓️  Verifikasi Blockchain",
+            "🛡️  Checking Security",
+            "✅ Authentication Success"
+        ]
+        
+        print()
+        for step in langkah:
+            print(f"    {step}", end="")
+            for _ in range(3):
+                sys.stdout.write('.')
+                sys.stdout.flush()
+                time.sleep(0.2)
+            print(" ✓")
+            time.sleep(0.3)
+        print()
+    except KeyboardInterrupt:
+        print("\n\nVerifikasi dibatalkan.")
+    except Exception as e:
+        print(f"\nError saat animasi verifikasi: {e}")
 
 
-def countdown_timer(seconds):
+def countdown_timer(detik):
     """Countdown timer untuk lockout"""
-    print("\n")
-    for remaining in range(seconds, 0, -1):
-        mins, secs = divmod(remaining, 60)
-        timer = f'{mins:02d}:{secs:02d}'
-        sys.stdout.write(f'\r    ⏳ Menunggu: {timer} ')
-        sys.stdout.flush()
-        time.sleep(1)
-    print("\n")
+    try:
+        print("\n")
+        for tersisa in range(detik, 0, -1):
+            menit, detik_sisa = divmod(tersisa, 60)
+            waktu = f'{menit:02d}:{detik_sisa:02d}'
+            sys.stdout.write(f'\r    ⏳ Menunggu: {waktu} ')
+            sys.stdout.flush()
+            time.sleep(1)
+        print("\n")
+    except KeyboardInterrupt:
+        print("\n\nTimer dibatalkan.")
+    except Exception as e:
+        print(f"\nError saat countdown: {e}")
 
 
-def progress_bar(message="Processing", duration=1):
+def progress_bar(pesan="Processing", durasi=1):
     """Progress bar generik"""
-    print()
-    for i in range(101):
-        filled = int(20 * i / 100)
-        bar = '█' * filled + '░' * (20 - filled)
-        sys.stdout.write(f'\r    {message}: [{bar}] {i}%')
-        sys.stdout.flush()
-        time.sleep(duration / 100)
-    print("\n")
+    try:
+        print()
+        for i in range(101):
+            terisi = int(20 * i / 100)
+            batang = '█' * terisi + '░' * (20 - terisi)
+            sys.stdout.write(f'\r    {pesan}: [{batang}] {i}%')
+            sys.stdout.flush()
+            time.sleep(durasi / 100)
+        print("\n")
+    except KeyboardInterrupt:
+        print("\n\nProgress dibatalkan.")
+    except Exception as e:
+        print(f"\nError saat menampilkan progress: {e}")
