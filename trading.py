@@ -439,9 +439,9 @@ def buat_order_beli():
         price = ambil_harga_pasar().get(crypto, 0)
         total_biaya = amount * price
         
-        # Preview Order dengan PrettyTable
+        
         print()
-        bersihkan_layar()   # coba2
+        bersihkan_layar()  
         tampilkan_header()
     
         # Info Wallet
