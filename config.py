@@ -1,6 +1,5 @@
 """
 Konfigurasi dan Konstanta Global
-Configuration & Constants
 """
 
 # ==================== FILE DATABASE ====================
